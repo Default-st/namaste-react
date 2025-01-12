@@ -1,46 +1,4 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import food from "./public/food.png";
-
-const AppLayout = () => {
-  return (
-    <div className="app">
-      <Header />
-      <Body />
-    </div>
-  );
-};
-
-const Header = () => {
-  return (
-    <div className="header">
-      <div className="logo-container">
-        <img className="logo" src={food} />
-      </div>
-      <div className="nav-items">
-        <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-const Body = () => {
-  return (
-    <div className="body">
-      <div className="search"> Search </div>
-      <div className="res-container">
-        {restaurantCardData.map((resCard) => (
-          <RestaurantCard resData={resCard} key={resCard.info.name} />
-        ))}
-      </div>
-    </div>
-  );
-};
-const restaurantCardData = [
+export const restaurantCardData = [
   {
     info: {
       id: "631826",
@@ -1829,28 +1787,3 @@ const restaurantCardData = [
     },
   },
 ];
-
-const RestaurantCard = ({ resData }) => {
-  const { name, cuisines, avgRating, totalRatingsString, costForTwo, sla } =
-    resData.info;
-  return (
-    <div className="res-card">
-      <img
-        alt="res-logo"
-        src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${resData.info.cloudinaryImageId}`}
-      />
-      <h3>{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
-      <div>
-        <h4>
-          {avgRating} stars - {totalRatingsString}
-        </h4>
-        <h4>{costForTwo}</h4>
-        <h4>{sla.slaString}</h4>
-      </div>
-    </div>
-  );
-};
-const divRoot = document.getElementById("root");
-const root = createRoot(divRoot);
-root.render(<AppLayout />);
