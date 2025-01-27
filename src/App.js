@@ -14,6 +14,7 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
+import AboutClass from "./components/About";
 
 const AppLayout = () => {
   return (
@@ -33,7 +34,12 @@ function Layout() {
   return (
     <Routes errorElement={<Error />}>
       <Route path="/" element={<AppLayout />} errorElement={<Error />}>
-        <Route index element={<Body />} errorElement={<Error />} />
+        <Route index element={<Body />} errorElement={<Error />} />{" "}
+        {/* <Route
+          path="/about"
+          element={<AboutClass />}
+          errorElement={<Error />}
+        /> */}
         <Route path="/about" element={<About />} errorElement={<Error />} />
         <Route path="/contact" element={<Contact />} errorElement={<Error />} />
         <Route
