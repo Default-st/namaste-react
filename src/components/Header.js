@@ -1,9 +1,12 @@
 import { useState } from "react";
 import food from "../../public/food.png";
 import { Link } from "react-router";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 export const Header = () => {
   const [btn, setBtn] = useState("Login");
+  const onlineStatus = useOnlineStatus();
+  console.log(onlineStatus);
   const handleLogin = () => {
     if (btn === "Login") {
       setBtn("Logout");
@@ -18,6 +21,7 @@ export const Header = () => {
       </div>
       <div className="nav-items">
         <ul>
+          <li>Online Status : {onlineStatus ? "✅" : "❌"}</li>
           <li>
             <Link to="/">Home</Link>
           </li>
