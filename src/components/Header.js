@@ -15,12 +15,12 @@ export const Header = () => {
     }
   };
   return (
-    <div className="header">
+    <div className="shadow-lg border-4 border-gray-400 rounded-lg flex items-center justify-between m-3 p-3">
       <div className="logo-container">
-        <img className="logo" src={food} />
+        <img className="w-14" src={food} />
       </div>
-      <div className="nav-items">
-        <ul>
+      <div>
+        <ul className="flex gap-4">
           <li>Online Status : {onlineStatus ? "✅" : "❌"}</li>
           <li>
             <Link to="/">Home</Link>

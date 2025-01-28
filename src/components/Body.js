@@ -50,20 +50,30 @@ export const Body = () => {
   return restaurantList?.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body">
-      <button onClick={handleTopRated} className="filter-btn">
-        Top Rated Restaurant
-      </button>
-      <input
-        type="text"
-        className="search-box"
-        value={searchRestaurant}
-        onChange={(e) => setSearchRestaurant(e.target.value)}
-      ></input>
-      <button onClick={handleSearch} className="search-btn">
-        Search
-      </button>
-      <div className="res-container">
+    <div className="body m-3 p-4 border-4 border-gray-400 rounded-sm">
+      <div className="flex justify-between gap-4 mb-4">
+        <button
+          onClick={handleTopRated}
+          className="border border-gray-400 px-4 rounded-sm bg-gray-300 hover:bg-gray-200 hover:cursor-pointer"
+        >
+          Top Rated Restaurant
+        </button>
+        <div className="flex gap-4">
+          <input
+            type="text"
+            className="border rounded-sm "
+            value={searchRestaurant}
+            onChange={(e) => setSearchRestaurant(e.target.value)}
+          />
+          <button
+            onClick={handleSearch}
+            className="bg-gray-300 hover:bg-gray-200 hover:cursor-pointer border rounded-sm border-gray-400 px-4 "
+          >
+            Search
+          </button>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 gap-3 border p-3 ">
         {filteredRestaurantList.map((resCard) => (
           <Link to={`/restaurants/${resCard.info.id}`} key={resCard.info.id}>
             <RestaurantCard resData={resCard} key={resCard.info.name} />
