@@ -916,6 +916,7 @@ export const dummy = {
                       cuisines: ["Pizzas"],
                       avgRating: 3.9,
                       parentId: "721",
+                      promoted: true,
                       avgRatingString: "3.9",
                       totalRatingsString: "1.9K+",
                       sla: {
@@ -1041,6 +1042,7 @@ export const dummy = {
                     info: {
                       id: "692493",
                       name: "KFC",
+                      promoted: true,
                       cloudinaryImageId:
                         "RX_THUMBNAIL/IMAGES/VENDOR/2024/12/9/f47f12d8-18ce-458e-91aa-6948bc31c130_692493.JPG",
                       locality: "Phase 2",
@@ -1341,6 +1343,7 @@ export const dummy = {
                       parentId: "355285",
                       avgRatingString: "4.5",
                       totalRatingsString: "415",
+                      promoted: true,
                       sla: {
                         deliveryTime: 25,
                         lastMileTravel: 1.2,
@@ -1486,6 +1489,7 @@ export const dummy = {
                   {
                     info: {
                       id: "681506",
+                      promoted: true,
                       name: "LeanCrust Pizza- ThinCrust Experts",
                       cloudinaryImageId:
                         "RX_THUMBNAIL/IMAGES/VENDOR/2024/8/30/16fb8437-6b80-40c3-9603-e7d8610ec256_681506.jpg",

@@ -1,15 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { restaurantCardData } from "../utils/mockData";
 import { RestaurantCard } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { dummy } from "../dummy";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { withPromotedLabel } from "./RestaurantCard";
+import UserContext from "../utils/UserCpntext";
+
 export const Body = () => {
   const [restaurantList, setRestaurantList] = useState([]);
   const [filteredRestaurantList, setFilteredRestaurantList] = useState([]);
   const [searchRestaurant, setSearchRestaurant] = useState("");
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
   const onlineStatus = useOnlineStatus();
+  const { setUserName, loggedInUser } = useContext(UserContext);
   useEffect(() => {
     fetchData();
   }, []);
@@ -58,6 +63,14 @@ export const Body = () => {
         >
           Top Rated Restaurant
         </button>
+        <div>
+          <label>Username</label>
+          <input
+            className="border p-2"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </div>
         <div className="flex gap-4">
           <input
             type="text"
@@ -73,10 +86,17 @@ export const Body = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-3 border p-3 ">
+      <div className="flex flex-wrap gap-3 border p-3 ">
         {filteredRestaurantList.map((resCard) => (
           <Link to={`/restaurants/${resCard.info.id}`} key={resCard.info.id}>
-            <RestaurantCard resData={resCard} key={resCard.info.name} />
+            {resCard.info.promoted === true ? (
+              <RestaurantCardPromoted
+                resData={resCard}
+                key={resCard.info.name}
+              />
+            ) : (
+              <RestaurantCard resData={resCard} key={resCard.info.name} />
+            )}
           </Link>
         ))}
       </div>

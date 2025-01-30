@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import food from "../../public/food.png";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserCpntext";
 
 export const Header = () => {
   const [btn, setBtn] = useState("Login");
   const onlineStatus = useOnlineStatus();
-  console.log(onlineStatus);
+  const data = useContext(UserContext);
+
   const handleLogin = () => {
     if (btn === "Login") {
       setBtn("Logout");
@@ -36,6 +38,7 @@ export const Header = () => {
           <button className="login" onClick={handleLogin}>
             {btn}
           </button>
+          <li>{data.loggedInUser}</li>
         </ul>
       </div>
     </div>

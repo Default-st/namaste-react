@@ -1,39 +1,49 @@
-import { useNavigate, useLocation, useParams } from "react-router";
-import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import Shimmer from "./Shimmer";
-import { MENU_API } from "../utils/constants";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
+import { useState } from "react";
+
 const RestaurantMenu = () => {
   const { resId } = useParams();
+  const [expandCategory, setExpandCategory] = useState("");
   const restaurantDetails = useRestaurantMenu(resId);
 
+  const handleExpand = (title) => {
+    if (title === expandCategory) setExpandCategory("");
+    else {
+      setExpandCategory(title);
+    }
+  };
   if (restaurantDetails === null) {
     return <Shimmer />;
   }
-  const { name, costForTwoMessage, cuisines, id } =
+  const { name, costForTwoMessage, cuisines } =
     restaurantDetails?.data?.cards[2]?.card?.card?.info;
 
-  const menu =
-    restaurantDetails?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR
-      .cards[2].card.card.itemCards;
+  const itemCategories =
+    restaurantDetails?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(
+      (item) =>
+        item.card.card["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
 
   return (
-    <div>
-      <h1>Name of Restaurant</h1>
-      <h2>{name}</h2>
+    <div className="text-center m-3 p-4 border-4 border-gray-400 rounded-sm">
+      <h2 className="text-2xl font-bold my-3">{name}</h2>
       <h2>{costForTwoMessage}</h2>
-      <h3>{cuisines.join(",")}</h3>
-      <h4>Menu</h4>
-      <ul>
-        {menu?.map((menuItem) => (
-          <li key={menuItem.card.info.id}>
-            {menuItem.card.info.name} - Rs{" "}
-            {menuItem.card.info.finalPrice
-              ? menuItem.card.info.finalPrice
-              : menuItem.card.info.defaultPrice}
-          </li>
-        ))}
-      </ul>
+      <p className="font-bold text-lg">{cuisines.join(",")}</p>
+
+      {itemCategories?.map((category) => {
+        return (
+          <RestaurantCategory
+            card={category.card.card}
+            key={category.card.card.title}
+            handleExpand={handleExpand}
+            expandCategory={expandCategory}
+          />
+        );
+      })}
     </div>
   );
 };
