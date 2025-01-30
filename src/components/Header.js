@@ -3,11 +3,13 @@ import food from "../../public/food.png";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserCpntext";
+import { useSelector } from "react-redux";
 
 export const Header = () => {
   const [btn, setBtn] = useState("Login");
   const onlineStatus = useOnlineStatus();
   const data = useContext(UserContext);
+  const cart = useSelector((store) => store.cart.items);
 
   const handleLogin = () => {
     if (btn === "Login") {
@@ -34,7 +36,9 @@ export const Header = () => {
             {" "}
             <Link to="/contact">Contact Us</Link>
           </li>
-          <li>Cart</li>
+          <Link to="/cart" className="font-bold text-xl cursor-pointer">
+            Cart ({cart.length} items)
+          </Link>
           <button className="login" onClick={handleLogin}>
             {btn}
           </button>

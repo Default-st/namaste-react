@@ -1,6 +1,12 @@
+import { useDispatch } from "react-redux";
 import { CDN_URL } from "../utils/constants";
+import { addItem } from "../utils/cartSlice";
 
 const ItemList = ({ items, title, expandCategory }) => {
+  const dispatch = useDispatch();
+  const handleAddItem = (e) => {
+    dispatch(addItem(e));
+  };
   return (
     <div className={` ${expandCategory === title ? "visible" : "hidden"}`}>
       {items.map((item) => {
@@ -28,7 +34,10 @@ const ItemList = ({ items, title, expandCategory }) => {
                   src={CDN_URL + item.card.info.imageId}
                   className=" rounded-lg"
                 />
-                <button className="cursor-pointer left-0 right-0 rounded border bottom-0  p-1 bg-white shadow-lg absolute">
+                <button
+                  onClick={() => handleAddItem(item)}
+                  className="cursor-pointer left-0 right-0 rounded border bottom-0  p-1 bg-white shadow-lg absolute"
+                >
                   Add +
                 </button>{" "}
               </div>

@@ -11,6 +11,9 @@ import { Header } from "./components/Header";
 import { Body } from "./components/Body";
 import Error from "./components/Error";
 import UserContext from "./utils/UserCpntext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
 
 const Body = lazy(() => import("./components/Body"));
 const About = lazy(() => import("./components/About"));
@@ -27,12 +30,14 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-      <div>
-        <Header />
-        <Outlet />
-      </div>
-    </UserContext.Provider>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div>
+          <Header />
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -77,6 +82,15 @@ function Layout() {
           element={
             <Suspense fallback={<h1>Loading</h1>}>
               <RestaurantMenu />
+            </Suspense>
+          }
+          errorElement={<Error />}
+        />
+        <Route
+          path="/cart"
+          element={
+            <Suspense fallback={<h1>Loading</h1>}>
+              <Cart />
             </Suspense>
           }
           errorElement={<Error />}
